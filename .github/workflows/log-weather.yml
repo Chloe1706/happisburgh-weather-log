@@ -1,0 +1,47 @@
+name: Log Happisburgh weather
+
+on:
+  schedule:
+    # Every 15 minutes. GitHub's scheduler is best-effort and can run late
+    # or occasionally skip a slot under heavy load - expect small gaps.
+    - cron: "*/15 * * * *"
+  workflow_dispatch:        # lets you trigger a run by hand to test it
+
+# Only one logging run at a time, so two runs can never collide on the CSV.
+concurrency:
+  group: weather-logger
+  cancel-in-progress: false
+
+permissions:
+  contents: write           # needed to commit the updated CSV
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch and append a reading
+        env:
+          VC_API_KEY: ${{ secrets.VC_API_KEY }}
+          LOCATION: "Happisburgh,Norfolk,UK"
+          CSV_PATH: "data/happisburgh.csv"
+        run: python log_weather.py
+
+      - name: Commit the new row
+        run: |
+          git config user.name "weather-logger"
+          git config user.email "actions@github.com"
+          git add data/happisburgh.csv
+          # No change means the API returned nothing new - don't fail the run.
+          git diff --staged --quiet && echo "No new data." && exit 0
+          git commit -m "Log reading $(date -u +'%Y-%m-%dT%H:%MZ')"
+          # Rebase before pushing in case a previous run landed first.
+          git pull --rebase --autostash
+          git push
