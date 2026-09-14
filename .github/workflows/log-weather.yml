@@ -4,7 +4,7 @@ on:
   schedule:
     # Every 15 minutes. GitHub's scheduler is best-effort and can run late
     # or occasionally skip a slot under heavy load - expect small gaps.
-    - cron: "*/15 * * * *"
+       - cron: "9,24,39,54 * * * *"
   workflow_dispatch:        # lets you trigger a run by hand to test it
 
 # Only one logging run at a time, so two runs can never collide on the CSV.
