@@ -282,3 +282,4 @@ timestamp_utc,timestamp_local,location,windspeed_mph,windgust_mph,winddir_deg,pr
 2026-11-05T23:40:00Z,2026-11-06 23:40:00,"Happisburgh,Norfolk,UK",1.9,0.6,337.0,1025.0,9.7,82.1,0.0,100.0,6.2,Overcast,visualcrossing/currentConditions
 2026-11-06T06:39:00Z,2026-11-06 06:39:00,"Happisburgh,Norfolk,UK",3.7,4.2,30.0,1023.0,8.1,86.8,0.0,100.0,6.2,Overcast,visualcrossing/currentConditions
 2026-11-06T14:30:00Z,2026-11-06 14:30:00,"Happisburgh,Norfolk,UK",5.5,6.0,70.0,1022.0,10.3,79.5,0.0,88.0,6.2,Partially cloudy,visualcrossing/currentConditions
+2026-11-06T20:27:00Z,2026-11-06 20:27:00,"Happisburgh,Norfolk,UK",1.8,2.0,255.0,1023.0,8.9,88.2,0.0,88.0,6.2,Partially cloudy,visualcrossing/currentConditions
